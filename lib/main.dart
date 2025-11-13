@@ -6,6 +6,7 @@
 // - theming
 
 import 'package:flutter/material.dart';
+import 'package:utip/widgets/person_counter.dart';
 
 void main() {
   runApp(const MainApp());
@@ -35,7 +36,6 @@ class UTip extends StatefulWidget {
 }
 
 class _UTipState extends State<UTip> {
-
   int _personCount = 1;
 
   void incrementPersonCount() {
@@ -46,7 +46,7 @@ class _UTipState extends State<UTip> {
 
   void decrementPersonCount() {
     setState(() {
-      if ( _personCount > 1 ) _personCount--;
+      if (_personCount > 1) _personCount--;
     });
   }
 
@@ -108,26 +108,12 @@ class _UTipState extends State<UTip> {
                     },
                   ),
                   // Split Bill area
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Split", style: theme.textTheme.titleMedium),
-                      Row(
-                        children: [
-                          IconButton(
-                            color: theme.colorScheme.primary,
-                            icon: Icon(Icons.remove),
-                            onPressed: () => {decrementPersonCount()},
-                          ),
-                          Text("$_personCount", style: theme.textTheme.titleMedium),
-                          IconButton(
-                            color: theme.colorScheme.primary,
-                            icon: Icon(Icons.add),
-                            onPressed: () => {incrementPersonCount()},
-                          ),
-                        ],
-                      ),
-                    ],
+                  PersonCounter(
+                    
+                  theme: theme,
+                    personCount: _personCount,
+                    onDecrement: decrementPersonCount,
+                    onIncrement: incrementPersonCount,
                   ),
                 ],
               ),
@@ -138,3 +124,5 @@ class _UTipState extends State<UTip> {
     );
   }
 }
+
+
