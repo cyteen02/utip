@@ -40,6 +40,17 @@ class UTip extends StatefulWidget {
 class _UTipState extends State<UTip> {
   int _personCount = 1;
   double _tipPercentage = 0.0;
+  double _billTotal = 0.0;
+
+  double totalPerPerson() {
+  return(     
+    ((_billTotal * _tipPercentage ) + _billTotal) / _personCount     
+    );
+  }
+
+  double totalTip(){
+    return ( _billTotal * _tipPercentage);
+  }
 
   void incrementPersonCount() {
     setState(() {
@@ -56,6 +67,10 @@ class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+
+    double totalBill = totalPerPerson();
+    double totalT = totalTip();
+
     final style = theme.textTheme.titleMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
       fontWeight: FontWeight.bold,
@@ -78,7 +93,7 @@ class _UTipState extends State<UTip> {
                 children: [
                   Text("Total Per Person", style: style),
                   Text(
-                    "£20.13",
+                    "£$totalBill",
                     style: style.copyWith(
                       color: theme.colorScheme.onPrimary,
                       fontSize: theme.textTheme.displaySmall!.fontSize,
@@ -101,8 +116,12 @@ class _UTipState extends State<UTip> {
               child: Column(
                 children: [
                   BillAmountField(
-                     billAmount: '100',
-                    onChanged: (value){},
+                     billAmount: _billTotal.toString(),
+                    onChanged: (value){
+                      setState(() {
+                        _billTotal = double.parse(value);
+                      });
+                    },
                     ),
               
                   // == Split Bill area
@@ -118,7 +137,7 @@ class _UTipState extends State<UTip> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Tip', style: theme.textTheme.titleMedium),
-                      Text('£20', style: theme.textTheme.titleMedium),
+                      Text('£$totalT', style: theme.textTheme.titleMedium),
                     ],
                   ),
 
