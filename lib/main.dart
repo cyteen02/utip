@@ -8,7 +8,9 @@
 import 'package:flutter/material.dart';
 import 'package:utip/widgets/bill_amount_field.dart';
 import 'package:utip/widgets/person_counter.dart';
+import 'package:utip/widgets/tip_row.dart';
 import 'package:utip/widgets/tip_slider.dart';
+import 'package:utip/widgets/total_per_person.dart';
 
 void main() {
   runApp(const MainApp());
@@ -81,28 +83,7 @@ class _UTipState extends State<UTip> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: EdgeInsets.all(18.0),
-            child: Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.inversePrimary,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Column(
-                children: [
-                  Text("Total Per Person", style: style),
-                  Text(
-                    "£$totalBill",
-                    style: style.copyWith(
-                      color: theme.colorScheme.onPrimary,
-                      fontSize: theme.textTheme.displaySmall!.fontSize,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          TotalPerPerson(theme: theme, style: style, totalBill: totalBill),
 
           // Form
           Padding(
@@ -133,13 +114,7 @@ class _UTipState extends State<UTip> {
                   ),
 
                   // == Tip Section
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Tip', style: theme.textTheme.titleMedium),
-                      Text('£$totalT', style: theme.textTheme.titleMedium),
-                    ],
-                  ),
+                  TipRow(theme: theme, totalT: totalT),
 
                   // == Slider & Text
                   Text("${(_tipPercentage * 100).round()}%"),
@@ -161,4 +136,3 @@ class _UTipState extends State<UTip> {
     );
   }
 }
-

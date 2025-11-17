@@ -20,20 +20,16 @@ class PersonCounter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text("Split", style: theme.textTheme.titleMedium),
-        Row(
-          children: [
-            IconButton(
-              color: theme.colorScheme.primary,
-              icon: Icon(Icons.remove),
-              onPressed: onDecrement,
-            ),
-            Text("$_personCount", style: theme.textTheme.titleMedium),
-            IconButton(
-              color: theme.colorScheme.primary,
-              icon: Icon(Icons.add),
-              onPressed: onIncrement,
-            ),
-          ],
+        IconButton(
+          color: theme.colorScheme.primary,
+          icon: Icon(Icons.remove),
+          onPressed: onDecrement,
+        ),
+        Text("$_personCount", style: theme.textTheme.titleMedium),
+        IconButton(
+          color: theme.colorScheme.primary,
+          icon: Icon(Icons.add),
+          onPressed: onIncrement,
         ),
       ],
     );
