@@ -6,6 +6,7 @@
 // - theming
 
 import 'package:flutter/material.dart';
+import 'package:utip/widgets/bill_amount_field.dart';
 import 'package:utip/widgets/person_counter.dart';
 import 'package:utip/widgets/tip_slider.dart';
 
@@ -92,24 +93,19 @@ class _UTipState extends State<UTip> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
+              padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(color: theme.colorScheme.primary, width: 2),
               ),
               child: Column(
                 children: [
-                  TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.currency_pound_rounded),
-                      labelText: 'Bill Amount',
+                  BillAmountField(
+                     billAmount: '100',
+                    onChanged: (value){},
                     ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (String value) {
-                      print(">> Value $value");
-                    },
-                  ),
-                  // Split Bill area
+              
+                  // == Split Bill area
                   PersonCounter(
                     theme: theme,
                     personCount: _personCount,
@@ -129,12 +125,14 @@ class _UTipState extends State<UTip> {
                   // == Slider & Text
                   Text("${(_tipPercentage * 100).round()}%"),
 
-                  TipSlider(tipPercentage: _tipPercentage, 
-                  onChanged: (double value) { 
-                    setState(() {
-                      _tipPercentage = value;
-                    });
-                   },),
+                  TipSlider(
+                    tipPercentage: _tipPercentage,
+                    onChanged: (double value) {
+                      setState(() {
+                        _tipPercentage = value;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
@@ -144,3 +142,4 @@ class _UTipState extends State<UTip> {
     );
   }
 }
+
